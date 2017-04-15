@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>Freelance-laskuri</title>
+
+  <script>
+    function calculateTotal() {
+      var svm = 0.0108; //Työnantajan sairausvakuutusmaksu
+      var tyelta = 0.1895; //TyEL työnantajan osuus
+      var tapaturmvm = 0.0080; //Tapaturmavakuutusmaksu (keskiarvo)
+      var tvmta = 0.0080; //Työttömyysvakuutusmaksu, työntekijän osuus
+      var rhv = 0.0007; //Ryhmähenkivakuutus
+      var tyeltt = 0.0615; //TyEL työntekijän osuus
+      var tvmtt = 0.016; //Työttömyysvakuutusmaksu, työntekijän osuus
+
+      var grossalary = document.getElementById("grossalary").value.replace(",", ".");
+      var vero = document.getElementById("ennakonpidatys").value.replace(",", ".");
+      vero = parseInt(vero);
+      vero = vero / 100;
+
+      document.getElementById("svm").innerHTML = (grossalary * svm).toFixed(2) + " euroa";
+      document.getElementById("tyelta").innerHTML = (grossalary * tyelta).toFixed(2) + " euroa";
+      document.getElementById("tapaturmvm").innerHTML = (grossalary * tapaturmvm).toFixed(2) + " euroa";
+      document.getElementById("tvmta").innerHTML = (grossalary * tvmta).toFixed(2) + " euroa";
+      document.getElementById("rhv").innerHTML = (grossalary * rhv).toFixed(2) + " euroa";
+      document.getElementById("tyeltt").innerHTML = (grossalary * tyeltt).toFixed(2) + " euroa";
+      document.getElementById("tvmtt").innerHTML = (grossalary * tvmtt).toFixed(2) + " euroa";
+      document.getElementById("vero").innerHTML = (grossalary * vero).toFixed(2) + " euroa";
+      var result =  grossalary * 1.2170;
+      document.getElementById("result").innerHTML = result.toFixed(2) + " euroa";
+      document.getElementById("net").innerHTML = (grossalary - grossalary*(vero+tyeltt+tvmtt)).toFixed(2) + " euroa";
+    }
+  </script>
+
+</head>
+<body>
+  <div class="container">
+<h1>Freelancerin palkkalaskuri</h1>
+  <p>Laskurin tiedot on tehty vuoden 2017 palkan sivukulujen pohjalta. Laskurin tiedot ovat suuntaa antavia eikä tekijä ota vastuuta tietojen oikeellisuudesta.</p>
+  <form>
+    <p>Valitse laskentatapa:</p>
+    <div class="radio">
+      <label><input type="radio" name="optradio">Laskutettavan summan mukaan</label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" name="optradio">Bruttopalkan mukaan</label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" name="optradio">Nettopalkan eli kaikkien maksujen jälkeen maksettavan summan mukaan</label>
+    </div>
+    <div class="form-group">
+      <label>Bruttopalkka:</label>
+      <input type="text" id="grossalary"></input>
+    </div>
+    <div class="form-group">
+      <label>Ennakonpidätys (%):</label>
+      <input type="text" id="ennakonpidatys"></input>
+    </div>
+    <div class="form-group">
+      <p><b>Laskutettava summa:&nbsp<span id=result></b></span></p>
+      <p><b>Tilille maksettava summa:&nbsp<span id=net></b></span></p>
+    </div>
+    <button type="button" class="btn btn-success" onclick="calculateTotal()">Laske</button>
+    <div class="form-group">
+      <h3 title="Työantajan maksut maksetaan bruttopalkan päälle ja tästä syystä laskutettava summma on suurempi kuin bruttopalkka.">Työnantajan maksut:</h3>
+      <p>Työnantajan sairausvakuutusmaksu (1,08%):&nbsp<b><span id="svm"></b></span></p>
+      <p>Työeläkemaksun (TyEL) työnantajan osuus (18,95%):&nbsp<b><span id="tyelta"></b></span></p>
+      <p>Tapaturmavakuutusmaksu (0,80%):&nbsp<b><span id="tapaturmvm"></b></span></p>
+      <p>Työttömyysvakuutusmaksu (0,80%):&nbsp<b><span id="tvmta"></b></span></p>
+      <p>Ryhmähenkivakuutus (0,07%):&nbsp<b><span id="rhv"></b></span></p>
+      <h3>Työntekijän maksut:</h3>
+      <p>Työeläkemaksun (TyEL) työntekijän osuus (6,15%):&nbsp<b><span id="tyeltt"></b></span></p>
+      <p>Työttömyysvakuutusmaksun työntekijän osuus  (1,60%):&nbsp<b><span id="tvmtt"></b></span></p>
+      <p>Ennakonpidätys henkilökohtaisen veroprosentin mukaan:&nbsp<b><span id="vero"></b></span></p>
+
+    </div>
+
+
+
+  </form>
+</div>
+</body>
+
+
+</html>
